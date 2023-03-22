@@ -1,3 +1,4 @@
+import datetime
 import uuid
 from django.db import models
 
@@ -16,26 +17,15 @@ class Store(models.Model):
     store_id = models.TextField(default=uuid.uuid4)
     timezone = models.TextField()
 
-    def __str__(self):
-        return f"{self.store_id}:{self.timezone}"
 
-
-class StoreStatus(models.Model):
-    id = models.TextField(primary_key=True, default=uuid.uuid4, editable=False)
-    store = models.ForeignKey(Store, on_delete=models.CASCADE)
-    timestamp_utc = models.DateTimeField()
+class StoreBusinessHour(models.Model):
+    store_id = models.TextField(default=uuid.uuid4())
+    timestamp_utc = models.DateTimeField(default="America/Chicago")
     status = models.CharField(max_length=255)
-
-    def __str__(self):
-        return f"{self.store.name} - {self.timestamp_utc}"
 
 
 class StoreMenuHour(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    store = models.ForeignKey(Store, on_delete=models.CASCADE)
+    store_id = models.TextField(default=uuid.uuid4())
     day_of_week = models.IntegerField(choices=WEEKDAYS)
     start_time = models.TimeField()
     end_time = models.TimeField()
-
-    def __str__(self):
-        return f"{self.store.name}"

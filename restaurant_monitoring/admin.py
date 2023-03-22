@@ -1,6 +1,6 @@
 from django.contrib import admin
-from .models import Store, StoreStatus, StoreMenuHour
+from .models import Store, StoreBusinessHour, StoreMenuHour
 
 admin.site.register(Store)
-admin.site.register(StoreStatus)
+admin.site.register(StoreBusinessHour)
 admin.site.register(StoreMenuHour)

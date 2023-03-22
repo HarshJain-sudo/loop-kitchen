@@ -1,7 +1,7 @@
 import typing
 
-from restaurant_monitoring.dtos import StoreDTO, StoreStatusDTO
-from restaurant_monitoring.models import Store, StoreStatus
+from restaurant_monitoring.dtos import StoreDTO, StoreBusinessHourDTO
+from restaurant_monitoring.models import Store, StoreBusinessHour
 
 
 def create_stores(list_of_store_dtos: typing.List[StoreDTO]):
@@ -15,14 +15,13 @@ def create_stores(list_of_store_dtos: typing.List[StoreDTO]):
     Store.objects.bulk_create(list_of_objs)
 
 
-def create_store_statuses(list_of_store_status_dtos: typing.List[StoreStatusDTO]):
+def create_store_statuses(list_of_store_status_dtos: typing.List[StoreBusinessHourDTO]):
     list_of_objs = [
-        StoreStatus(
-            id=each.id,
-            store_id=each.store_id,
+        StoreBusinessHour(
+            store_id=int(each.store_id),
             status=each.status,
             timestamp_utc=each.timestamp_utc,
         )
         for each in list_of_store_status_dtos
     ]
-    StoreStatus.objects.bulk_create(list_of_objs)
+    StoreBusinessHour.objects.bulk_create(list_of_objs)

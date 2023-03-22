@@ -9,8 +9,7 @@ class StoreDTO:
 
 
 @dataclass
-class StoreStatusDTO:
-    id: str
+class StoreBusinessHourDTO:
     store_id: str
     status: str
     timestamp_utc: datetime
