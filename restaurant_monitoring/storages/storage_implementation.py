@@ -1,7 +1,7 @@
 import typing
 
-from restaurant_monitoring.dtos import StoreDTO, StoreBusinessHourDTO
-from restaurant_monitoring.models import Store, StoreBusinessHour
+from restaurant_monitoring.dtos import StoreDTO, StoreBusinessHourDTO, StoreMenuHourDTO
+from restaurant_monitoring.models import Store, StoreBusinessHour, StoreMenuHour
 
 
 def create_stores(list_of_store_dtos: typing.List[StoreDTO]):
@@ -15,7 +15,7 @@ def create_stores(list_of_store_dtos: typing.List[StoreDTO]):
     Store.objects.bulk_create(list_of_objs)
 
 
-def create_store_statuses(list_of_store_status_dtos: typing.List[StoreBusinessHourDTO]):
+def create_store_business_hour(list_of_store_status_dtos: typing.List[StoreBusinessHourDTO]):
     list_of_objs = [
         StoreBusinessHour(
             store_id=int(each.store_id),
@@ -25,3 +25,17 @@ def create_store_statuses(list_of_store_status_dtos: typing.List[StoreBusinessHo
         for each in list_of_store_status_dtos
     ]
     StoreBusinessHour.objects.bulk_create(list_of_objs)
+
+
+def create_store_menu_hour(list_of_store_menu_hour_dtos: typing.List[StoreMenuHourDTO]):
+    list_of_objs = [
+        StoreMenuHour(
+            store_id=int(each.store_id),
+            day_of_week=each.day_of_week,
+            start_time=each.start_time,
+            end_time=each.end_time
+        )
+        for each in list_of_store_menu_hour_dtos
+    ]
+
+    StoreMenuHour.objects.bulk_create(list_of_objs)
