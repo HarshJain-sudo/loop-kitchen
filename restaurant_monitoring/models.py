@@ -39,9 +39,3 @@ class StoreMenuHour(models.Model):
 
     def __str__(self):
         return f"{self.store.name}"
-
-
-class Files(models.Model):
-    name = models.CharField(max_length=100)
-    file = models.FileField(upload_to='files')
-
