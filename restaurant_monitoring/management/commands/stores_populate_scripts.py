@@ -25,7 +25,7 @@ class Command(BaseCommand):
 
                 list_of_store_dtos.append(
                     StoreDTO(
-                        store_id=store_id,
+                        store_id="{:.0f}".format(float(store_id)),
                         timezone=timezone_str
                     )
                 )

@@ -21,7 +21,7 @@ class Store(models.Model):
 
 
 class StoreStatus(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.TextField(primary_key=True, default=uuid.uuid4, editable=False)
     store = models.ForeignKey(Store, on_delete=models.CASCADE)
     timestamp_utc = models.DateTimeField()
     status = models.CharField(max_length=255)
