@@ -4,7 +4,7 @@ from datetime import datetime
 
 @dataclass
 class StoreDTO:
-    id: str
+    store_id: str
     timezone: str
 
 

@@ -13,11 +13,11 @@ WEEKDAYS = (
 
 
 class Store(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    store_id = models.TextField(primary_key=True, default=uuid.uuid4())
     timezone = models.TextField()
 
     def __str__(self):
-        return f"{self.id}:{self.timezone}"
+        return f"{self.store_id}:{self.timezone}"
 
 
 class StoreStatus(models.Model):
