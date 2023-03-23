@@ -15,17 +15,17 @@ WEEKDAYS = (
 
 class Store(models.Model):
     store_id = models.TextField(default=uuid.uuid4)
-    timezone = models.TextField()
+    timezone = models.TextField(default="America/Chicago")
 
 
 class StoreBusinessHour(models.Model):
-    store = models.ForeignKey(Store, on_delete=models.CASCADE, default=None)
+    store_id = models.TextField(default="NA")
     timestamp_utc = models.DateTimeField(default=None)
     status = models.CharField(max_length=255)
 
 
 class StoreMenuHour(models.Model):
-    store = models.ForeignKey(Store, on_delete=models.CASCADE)
+    store_id = models.TextField(default="NA")
     day_of_week = models.IntegerField(choices=WEEKDAYS)
     start_time = models.TimeField()
     end_time = models.TimeField()
