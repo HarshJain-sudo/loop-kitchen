@@ -19,13 +19,13 @@ class Store(models.Model):
 
 
 class StoreBusinessHour(models.Model):
-    store_id = models.TextField(default=uuid.uuid4())
-    timestamp_utc = models.DateTimeField(default="America/Chicago")
+    store = models.ForeignKey(Store, on_delete=models.CASCADE, default=None)
+    timestamp_utc = models.DateTimeField(default=None)
     status = models.CharField(max_length=255)
 
 
 class StoreMenuHour(models.Model):
-    store_id = models.TextField(default=uuid.uuid4())
+    store = models.ForeignKey(Store, on_delete=models.CASCADE)
     day_of_week = models.IntegerField(choices=WEEKDAYS)
     start_time = models.TimeField()
     end_time = models.TimeField()
