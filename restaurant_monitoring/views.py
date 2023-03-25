@@ -1,28 +1,24 @@
 from django.http import JsonResponse
 from restaurant_monitoring.storages import storage_implementation as storage
+from restaurant_monitoring import utils
 
 
 def trigger_report_view(request):
-    store_dtos = storage\
-        .get_all_stores()
+    business_hours_dict = storage.get_business_hour_dict()
+
     store_ids = [
-        each.store_id
-        for each in store_dtos
-    ]
-
-    store_menu_hour_dict = storage.\
-        get_menu_hour_dict(store_ids)
-
-    store_menu_hour_ids = [
         each['store_id']
-        for each in store_menu_hour_dict
+        for each in business_hours_dict
     ]
 
-    store_business_hour_dict = storage.\
-        get_business_hour_dict(store_menu_hour_ids)
+    menu_hour_dict = storage.get_menu_hour_dict(
+        store_ids)
+
+    business_hours = utils.prepare_dict_for_menu_hours(
+        menu_hour_dict)
+
     response = {
-        "store_menu_hour_dict": store_menu_hour_dict,
-        "store_business_hour_dict": store_business_hour_dict
+        'report_id': business_hours
     }
     return JsonResponse(response)
 

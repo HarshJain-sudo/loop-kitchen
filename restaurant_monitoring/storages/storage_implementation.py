@@ -53,14 +53,14 @@ def get_all_stores() -> typing.List[StoreDTO]:
 def get_menu_hour_dict(store_ids: list[str]) ->\
         typing.List[typing.Dict[str, typing.Any]]:
     business_menu_hours_queryset = StoreMenuHour.objects.filter(store_id__in=store_ids).\
-        values('store_id', 'day_of_week', 'start_time', 'end_time')
+        order_by('store_id', 'day_of_week').values('store_id', 'day_of_week', 'start_time', 'end_time')
 
     return list(business_menu_hours_queryset)
 
 
-def get_business_hour_dict(store_ids: list[str]) ->\
+def get_business_hour_dict() ->\
         typing.List[typing.Dict[str, typing.Any]]:
-    business_business_hours_queryset = StoreBusinessHour.objects.filter(store_id__in=store_ids).\
+    business_business_hours_queryset = StoreBusinessHour.objects.all().\
         values('store_id', 'timestamp_utc', 'status')
 
     return list(business_business_hours_queryset)
